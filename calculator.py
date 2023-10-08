@@ -60,24 +60,6 @@ def addButton(row, col, rs, cs, name):
 
 # take the tracker and evaluate and updates its value or smth like that idk
 def evaluate():
-
-    def add(*numbers):
-        result = 0
-
-        for num in numbers:
-            result = result + num
-
-        return result
-
-    def subtract(x, y):
-        return x - y
-
-    def multiply(x, y):
-        return x * y
-
-    def divide(x, y):
-        return x / y
-
     # making an equation to work on
     signs = ["+", "-", "x", "÷", "(", ")"]
     number = []
@@ -99,56 +81,17 @@ def evaluate():
     print(f"[NUMBER]: {number}")
     print(f"[EQUATION]: {equation}")
 
-    # answering the equation that was formed it the last for loop
-    brackets = []
-    for i in equation:
-        if i == "+":
-            num1 = equation[equation.index("+") - 1]
-            num2 = equation[equation.index("+") + 1]
+    equation_str = ''.join(equation)
 
-            index = equation.index("+") - 1
-
-            added = str(add(int(num1), int(num2)))
-
-            equation.remove(num1)
-            equation.remove(i)
-            equation.remove(num2)
-
-            print(index)
-            print(added)
-            tracker.clear()
-            tracker.insert(index, added)
-            line_edit.setText(''.join(tracker))
-
-    # currently only works with 2 numbers eg: 1+1
-    # fucking shits itself if i enter more than 2 eg: 1+1+1 output: 2, sometimes it even gives -1 like HOW???
-    # if "+" in equation:
-    #     for i in equation:
-    #         if i == "+":
-    #             num1 = equation[equation.index("+") - 1]
-    #             num2 = equation[equation.index("+") + 1]
-    #
-    #             index = equation.index("+") - 1
-    #
-    #             added = str(add(int(num1), int(num2)))
-    #
-    #             equation.remove(num1)
-    #             equation.remove(i)
-    #             equation.remove(num2)
-    #
-    #             print(index)
-    #             print(added)
-    #             tracker.clear()
-    #             tracker.insert(index, added)
-    #             line_edit.setText(''.join(tracker))
-
-
-        # num1 = tracker[tracker.index("+") - 1]
-        # num2 = tracker[tracker.index("+") + 1]
-        #
-        # tracker.clear()
-        # line_edit.setText(str(add(int(num1), int(num2))))
-
+    try:
+        result = eval(equation_str)
+        tracker.clear()
+        tracker.append(str(result))
+        line_edit.setText(str(result))
+        print(result)
+        print(tracker)
+    except Exception as e:
+        print(f"Error: {e}")
 
 # clear everything
 def clear():
